@@ -1,0 +1,130 @@
+ $autoquery = "SELECT * FROM autos ";
+ echo $autoquery;
+  $autores = mysqli_query($con,$autoquery);
+ $marken='';
+
+  $query = "SHOW COLUMNS FROM autos LIKE 'Hersteller'";
+  $erg=mysqli_query($con,$query);
+  $row=mysqli_fetch_row($erg);
+  $werte=explode("','",preg_replace("/(enum|set)\('(.+?)'\)/","\\2",$row[1]));
+  
+
+  $markeimgsrc = '';
+
+
+  // echo $is;
+
+  // $number = $rows['Typ']; 
+
+  foreach($werte as $x) {
+// elseif($x == "Mercedes"){
+  //   $markeimgsrc='../img/Benz.png';
+  // }elseif($x == "Mercedes"){
+  //   $markeimgsrc='../img/Benz.png';
+  // }elseif($x == "Mercedes"){
+  //   $markeimgsrc='../img/Benz.png';
+  // }elseif($x == "Mercedes"){
+  //   $markeimgsrc='../img/Benz.png';
+  // }
+  $marken = $x;
+  
+  for($is2=0;$is2 < mysqli_num_rows($autores);$is2++)
+  {
+    $rows = mysqli_fetch_array($autores);
+    $number = $rows['Typ']; 
+    if($x == "BMW" ){
+      $markeimgsrc='../img/BMW.png';
+    }
+    if($x == "Mercedes"  ){
+      $markeimgsrc='../img/Benz.png';
+    }
+    if($x == "Mercedes" ){
+      $markeimgsrc='../img/Benz.png';
+    }if($x == "Tesla" ){
+      $markeimgsrc='../img/tesla.png';
+    }if($x == "Dodge"  ){
+      $markeimgsrc='../img/Dodge.png';
+    }if($x == "Ford" ){
+      $markeimgsrc='../img/Ford.png';
+    }if($x == "Vw"  ){
+      $markeimgsrc='../img/Vw.png';
+    }
+  
+
+
+  echo $number;
+
+// }
+    
+  //   switch ($x) {
+  //     case "BMW":
+  //       if($number == $_GET['Kat']){
+  //         $markeimgsrc='../img/BMW.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+  //     case "Mercedes":
+  //       if($number  == $_GET['Kat']){
+  //         $markeimgsrc='../img/Benz.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+  //     case "Tesla":
+  //       if($number  == $_GET['Kat']){
+  //         $markeimgsrc='../img/tesla.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+  //     case "Dodge":
+  //       if($number  == $_GET['Kat']){
+  //         $markeimgsrc='../img/dodge.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+  //     case "Ford":
+  //       if($number  == $_GET['Kat']){
+  //         $markeimgsrc='../img/benz.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+  //     case "Vw":
+  //       if($number  == $_GET['Kat']){
+  //         $markeimgsrc='../img/vw.png';
+  //         echo $number.' == '.$_GET['Kat'];
+  //       }
+  //     break;
+    
+  //     default : $markeimgsrc = '';
+  //   // break;
+  //   }
+    if($number == $_GET['Kat']){
+      $autoimg .= '
+      <div class="container">
+        
+        <div class="content">
+          <a href="vermietung.php?Kat='.$pfad.'" target="_blank">
+            <div class="content-overlay"></div>
+            <img class="content-image" src="'.$markeimgsrc.'"style="width:80;">
+            <div class="content-details fadeIn-top">
+              <h3 style="left;">'.$x.'</h3>
+              <p>'.$x.'</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      ';
+    
+     }
+    }
+    // eho $number;
+    // $is++;
+  }
+
+// echo "<pre>";
+// print_r($werte);
+// $test=implode($werte);
+
+
+echo $autoimg;
+
+}
